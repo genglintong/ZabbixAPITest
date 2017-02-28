@@ -6,37 +6,37 @@ use ZabbixApi\ZabbixApi;
 try
 {
 	// connect to Zabbix API
-	//zabbixAPI  ÕË»§ ÃÜÂë
-	$api = new ZabbixApi('http://10.3.181.34/zabbix/api_jsonrpc.php', 'admin', 'zabbix');
+	//zabbixAPI  è´¦æˆ· å¯†ç 
+	$api = new ZabbixApi('http://zabbixåœ°å€/zabbix/api_jsonrpc.php', 'è´¦å·', 'å¯†ç ');
 
-	// »ñÈ¡ËùÓĞÖ÷»ú
+	// è·å–æ‰€æœ‰ä¸»æœº
 	$graphs = $api->hostGet();
 	
-	// ´òÓ¡ËùÓĞÖ÷»úid
+	// æ‰“å°æ‰€æœ‰ä¸»æœºid
 	foreach($graphs as $graph){
 		echo $graph->hostid."<br>";
 		//var_dump($graph)."<br>";
 	}
 	
-	//»ñÈ¡ËùÓĞÖ÷»úip,hostid
+	//è·å–æ‰€æœ‰ä¸»æœºip,hostid
 	$graphs = $api->hostGet(array(
-	    //Ä£ºıÆ¥Åä
+	    //æ¨¡ç³ŠåŒ¹é…
 		'output' => [ 'name', 'host' ] ,	
 		//'selectInterfaces' => [ "interfaces", "ip" ]	
-		//¹ıÂË ip
+		//è¿‡æ»¤ ip
 	));
-	// ´òÓ¡ËùÓĞÖ÷»úip
+	// æ‰“å°æ‰€æœ‰ä¸»æœºip
 	foreach($graphs as $graph){
 		echo $graph->host."    ".$graph->name."<br>";
 		//var_dump($graph)."<br>";
 	}
-	//»ñÈ¡Ä³Ò»Ö÷»úËùÓĞ¼à¿ØÏîid
+	//è·å–æŸä¸€ä¸»æœºæ‰€æœ‰ç›‘æ§é¡¹id
 	$items = $api->itemGet(array(
-		'output' =>['itemid','name'],//ÈôÎªextend ÔòÎª×ß×öËùÓĞÏî
-		'hostids' =>'10130',//Ö÷»úid
-		'search' => array()//¿ÉÒÔÉèÖÃËÑË÷Ìõ¼ş
+		'output' =>['itemid','name'],//è‹¥ä¸ºextend åˆ™ä¸ºèµ°åšæ‰€æœ‰é¡¹
+		'hostids' =>'10130',//ä¸»æœºid
+		'search' => array()//å¯ä»¥è®¾ç½®æœç´¢æ¡ä»¶
 	));
-	$i =0;//¼ÆÊı£¬¿ÉºöÂÔ
+	$i =0;//è®¡æ•°ï¼Œå¯å¿½ç•¥
 	foreach ($items as $item){
 		$i++;
 		echo $item->itemid." ".$item->name."<br>";
@@ -45,15 +45,15 @@ try
 	echo $i;
 	
 	$datas = $api->historyGet(array(
-		'history' => '0',//»ñÈ¡ËùÓĞÊı¾İ
-		//"time_from":"1398873600",   //ÆğÊ¼Ê±¼ä
-		//"time_till":"1399046400",   //ÖÕÖ¹Ê±¼ä 
+		'history' => '0',//è·å–æ‰€æœ‰æ•°æ®
+		//"time_from":"1398873600",   //èµ·å§‹æ—¶é—´
+		//"time_till":"1399046400",   //ç»ˆæ­¢æ—¶é—´ 
 		//
-		//'hostids' =>'10130',//Ö÷»úid
+		//'hostids' =>'10130',//ä¸»æœºid
 		'itemids' => '25016',
 		'output' => 'extend',
 		'search' =>array(),
-		'limit' =>10	//»ñÈ¡Ê®Ìõ
+		'limit' =>10	//è·å–åæ¡
 		
 			
 	));
